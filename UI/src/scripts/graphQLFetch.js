@@ -9,7 +9,7 @@ function jsonDateParser(key, value) {
 //utility function that handles API calls in the GraphQL server and if any errors are found, it reports them
 export default async function fetchGraphQL(query, variables = {}) {
 	try {
-		const graphQLFetchResponse = await fetch('http://localhost:4000/graphql', {
+		const graphQLFetchResponse = await fetch('https://real-pink-rattlesnake-shoe.cyclic.app/graphql', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ query, variables })
