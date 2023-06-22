@@ -1,0 +1,77 @@
+scalar GraphQLDate
+
+enum Title {
+	Employee
+	Manager
+	Director
+	VP
+}
+
+enum Department {
+	IT
+	Marketing
+	HR
+	Engineering
+}
+
+enum EmployeeType {
+	Full_Time
+	Part_Time
+	Contract
+	Seasonal
+}
+
+enum StatusType {
+	New
+	Assigned
+}
+
+type Employee{
+	_id: ID!
+	id: Int!
+	firstName: String!
+	lastName: String!
+	age: Int!
+	dateOfJoining: GraphQLDate!
+	title: Title!	
+	department: Department!
+	employeeType: EmployeeType!
+	currentStatus: Boolean
+}
+
+input EmployeeInputs {
+	firstName: String!
+	lastName: String!
+	age: Int!
+	dateOfJoining: GraphQLDate!
+	"Optional, if not supplied, will be set to 'Employee'"
+	title: Title = Employee
+	"Optional, if not supplied, will be set to 'IT'"
+	department: Department = IT
+	"Optional, if not supplied, will be set to 'Contract'"
+	employeeType: EmployeeType = Contract
+	currentStatus: Boolean!
+}
+
+input UpdateEmployeeInputs{
+	_id: ID!
+	"Optional, if not supplied, will be set to 'Employee'"
+	title: Title = Employee
+	"Optional, if not supplied, will be set to 'IT'"
+	department: Department = IT
+	"Optional, if not supplied, will be set to 'Contract'"
+	currentStatus: Boolean!
+}
+
+####Top level declaration
+type Query{
+	employeeList(employeeType: EmployeeType, search: String): [Employee!]!
+	employee(id: ID!): Employee!
+}
+
+type Mutation {
+	addEmployee(employee: EmployeeInputs!): Employee
+	updateEmployee(employee: UpdateEmployeeInputs!): Employee
+	deleteEmployee(employeeId: ID!): Boolean
+}	
+
